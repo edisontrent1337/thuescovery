@@ -57,7 +57,7 @@ class DemoScreen extends Component {
                     <div style={{
                         backgroundColor: 'black',
                         color: 'white',
-                        transform: `translate3d(${orientation.beta}px, ${orientation.alpha}px, 0)`
+                        transform: `translate3d(${orientation.beta}px, ${orientation.alpha}px,0)`
                     }}>
                         Hello there
                     </div>}
