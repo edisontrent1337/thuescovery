@@ -9,7 +9,7 @@ class GeoTag extends Component {
     }
 
     render() {
-        const {orientation, position, poi} = this.props;
+        const {orientation, position, poi, origin} = this.props;
         const scale = 15;
         return <div className="tag" style={{
             top: position.y,
@@ -17,7 +17,7 @@ class GeoTag extends Component {
             zIndex: 10000,
             transform: `translate3d(${orientation.beta * scale}px, ${orientation.alpha * scale}px,0)`
         }}>
-            <Link style={{textDecoration: 'none', color: 'white'}} to={{pathname: '/detail', state: {poi}}}>
+            <Link style={{textDecoration: 'none', color: 'white'}} to={{pathname: '/detail', state: {poi, origin}}}>
                 <div><span className={'mdi mdi-' + this.determineIcon(poi)}>{poi.name}</span></div>
 
                 {poi.photo && <img src={poi.photo}/>}
