@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import ReactDOM from "react-dom";
+import { compose, withProps } from "recompose";
+import {
+    withScriptjs,
+    withGoogleMap,
+    GoogleMap,
+    Marker
+} from "react-google-maps";
 
-function App() {
-    return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
-    );
-}
+const MyMapComponent = compose(
+    withProps({
+        /**
+         * Note: create and replace your own key in the Google console.
+         * https://console.developers.google.com/apis/dashboard
+         * The key "AIzaSyBkNaAGLEVq0YLQMi-PYEMabFeREadYe1Q" can be ONLY used in this sandbox (no forked).
+         */
+        googleMapURL:
+            "https://maps.googleapis.com/maps/api/js?key=AIzaSyADE1MIp5__mY7JZddAZfHyyGCURkVdAFY&v=3.exp&libraries=geometry,drawing,places",
+        loadingElement: <div style={{ height: `100%` }} />,
+        containerElement: <div style={{ height: `400px` }} />,
+        mapElement: <div style={{ height: `100%` }} />
+    }),
+    withScriptjs,
+    withGoogleMap
+)(props => (
+    <GoogleMap defaultZoom={8} defaultCenter={{ lat: -34.397, lng: 150.644 }}>
+        {props.isMarkerShown && (
+            <Marker position={{ lat: -34.397, lng: 150.644 }} />
+        )}
+    </GoogleMap>
+));
 
-export default App;
+ReactDOM.render(<MyMapComponent isMarkerShown />, document.getElementById("root"));
