@@ -1,8 +1,16 @@
 import React, {Component} from 'react';
 
+import { Container, Row, Col } from 'react-bootstrap';
+
 class LandingScreen extends Component {
 	render() {
-		return <div>LandingScreen</div>;
+		return <Container>
+				<Row>
+					<Col>
+						<h1>Thüscovery</h1>
+					</Col>
+				</Row>
+			</Container>;
 	}
 }
 
