@@ -51,7 +51,7 @@ class ARScreen extends React.Component {
     generateRandomPositions = (response) => {
         let positions = [];
         response.forEach(() => {
-            positions.push({x: (-0.5 + Math.random()) * 3000, y: Math.random() * 400})
+            positions.push({x: (-0.5 + Math.random()) * 4000, y: Math.random() * 400})
         });
         this.setState({
             positions
