@@ -51,13 +51,20 @@ class MapScreen extends Component {
 
   render() {
     let markers = this.state.pois.map((poi) => {
-      return <Marker key={poi.id} position={poi.position} label={poi.label}/>
+      return <Marker key={poi.id} position={poi.position} label={poi.label} onClick={() => this.navigateTo(poi)}/>
     });
     return <div>
       <GoogleMap defaultZoom={14} center={this.state.position}>
         {markers}
       </GoogleMap>
     </div>;
+  }
+  
+  navigateTo = (poi) => {
+    // not the best thing maybe?
+    const from = this.state.position.lat + ',' + this.state.position.lng;
+    const to = poi.position.lat + ',' + poi.position.lng;
+    window.location.href = "https://www.google.com/maps/dir/?api=1&origin=" + from + "&destination=" + to + "&travelmode=bicycling";
   }
 }
 
