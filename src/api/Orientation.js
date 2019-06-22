@@ -1,5 +1,10 @@
-
-let state = {};
+let state = {
+    orientation: {
+        alpha: 0,
+        beta: 0,
+        gamma: 0
+    }
+};
 
 export default class Orientation {
     static startOrientationListener() {
@@ -8,17 +13,17 @@ export default class Orientation {
         window.addEventListener('orientationchange', handleOrientation);
         state.updateInterval = setInterval(updateOrientation, 16);
     }
-    
+
     static stopOrientationListener() {
         window.removeEventListener('devicemotion', handleAcceleration);
         window.removeEventListener('orientationchange', handleOrientation);
         clearInterval(state.updateInterval);
     }
-    
+
     static resetOrientation() {
         state.orientation = {alpha: 0, beta: 0, gamma: 0};
     }
-    
+
     static setOrientationListener(listener) {
         state.listener = listener;
     }
@@ -41,13 +46,12 @@ function handleAcceleration(event) {
     state.position = {
         x, y, z
     };
-};
+}
 
 
 function updateOrientation() {
-
     const rotation = state.rotation;
-    if (!rotation) {
+    if (!rotation || !state.listener) {
         return;
     }
 
@@ -58,8 +62,9 @@ function updateOrientation() {
     beta += rotation.beta / FRAME_RATE;
     gamma += rotation.gamma / FRAME_RATE;
 
-    const orientation = {
+    state.orientation = {
         alpha, beta, gamma
     };
-    state.orientation = orientation;
-};
+
+    state.listener(state.orientation);
+}

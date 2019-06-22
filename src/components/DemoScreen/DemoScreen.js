@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { compose, withProps } from "recompose";
-import { GoogleMap, Marker, withGoogleMap, withScriptjs } from "react-google-maps";
+import React, {Component} from 'react';
+import {compose, withProps} from "recompose";
+import {GoogleMap, Marker, withGoogleMap, withScriptjs} from "react-google-maps";
 import Camera from "react-html5-camera-photo";
 
 import Orientation from '../../api/Orientation';
@@ -29,7 +29,7 @@ class DemoScreen extends Component {
     componentDidMount() {
         Orientation.startOrientationListener();
         Orientation.setOrientationListener((orientation) => {
-            this.setState({ orientation: orientation });
+            this.setState({orientation: orientation});
         });
     }
 
@@ -38,12 +38,12 @@ class DemoScreen extends Component {
     }
 
     render() {
-        const { orientation } = this.state;
+        const {orientation} = this.state;
         return (
             <div>
-                <GoogleMap defaultZoom={8} defaultCenter={{ lat: -34.397, lng: 150.644 }}>
-                    <Marker position={{ lat: -34.397, lng: 150.644 }} />
-                    <Marker position={{ lat: -34.392, lng: 150.644 }} />
+                <GoogleMap defaultZoom={8} defaultCenter={{lat: -34.397, lng: 150.644}}>
+                    <Marker position={{lat: -34.397, lng: 150.644}}/>
+                    <Marker position={{lat: -34.392, lng: 150.644}}/>
                 </GoogleMap>
                 <Camera
                     idealFacingMode={'environment'}
@@ -53,12 +53,16 @@ class DemoScreen extends Component {
                     }}
                 />
                 <div>
-
-                    {orientation && <div style={{ transform: `translate3d(${orientation.alpha}px, ${orientation.beta}px, 0)` }}>
+                    {orientation &&
+                    <div style={{
+                        backgroundColor: 'black',
+                        color: 'white',
+                        transform: `translate3d(${orientation.beta}px, ${orientation.alpha}px, 0)`
+                    }}>
                         Hello there
                     </div>}
 
-                    {orientation && <div>{JSON.stringify(orientation)}</div>}
+                    {orientation && <div>{JSON.stringify(orientation, null, '  ')}</div>}
 
                 </div>
             </div>);
@@ -74,9 +78,9 @@ export default compose(
          */
         googleMapURL:
             "https://maps.googleapis.com/maps/api/js?key=" + API_KEY + "&v=3.exp&libraries=geometry,drawing,places",
-        loadingElement: <div style={{ height: `100%` }} />,
-        containerElement: <div style={{ height: `400px` }} />,
-        mapElement: <div style={{ height: `100%` }} />,
+        loadingElement: <div style={{height: `100%`}}/>,
+        containerElement: <div style={{height: `400px`}}/>,
+        mapElement: <div style={{height: `100%`}}/>,
         useGravity: true
     }),
     withScriptjs,
