@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ARView from './ARView';
+import GeoTag from './GeoTag';
 
-describe('<ARView />', () => {
+describe('<GeoTag />', () => {
   test('renders', () => {
-    const wrapper = shallow(<ARView />);
+    const wrapper = shallow(<GeoTag />);
     expect(wrapper).toMatchSnapshot();
   });
 });
