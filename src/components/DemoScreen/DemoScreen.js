@@ -8,7 +8,71 @@ import ReactAccelerometer from "react-accelerometer";
 const API_KEY = "AIzaSyADE1MIp5__mY7JZddAZfHyyGCURkVdAFY";
 
 class DemoScreen extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            x: 0,
+            y: 0,
+            z: 0,
+            orientation: {
+                alpha: 0,
+                beta: 0,
+                gamma: 0,
+            }
+        }
+    }
+
+    componentDidMount() {
+        this.handleOrientation();
+        window.addEventListener('devicemotion', this.handleAcceleration);
+        window.addEventListener('orientationchange', this.handleOrientation);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('devicemotion', this.handleAcceleration);
+        window.removeEventListener('orientationchange', this.handleOrientation);
+    }
+
+    handleOrientation = (event) => {
+        const {orientation} = window;
+        this.setState({landscape: orientation === 90 || orientation === -90})
+    };
+
+    handleAcceleration = (event) => {
+        const {landscape} = this.state;
+        const {useGravity} = this.props;
+        const acceleration = useGravity ? event.accelerationIncludingGravity : event.acceleration;
+        const rotation = event.rotationRate || null;
+        let {x, y, z} = acceleration;
+
+        x = (landscape ? y : x);
+        y = (landscape ? x : y);
+        z = z * 1;
+
+        const position = {
+            x, y, z
+        };
+
+        let {alpha, beta, gamma} = this.state.orientation;
+        alpha += rotation.alpha;
+        beta += rotation.alpha;
+        gamma += rotation.alpha;
+
+        const orientation = {
+            alpha, beta, gamma
+        };
+
+        this.setState({
+            rotation,
+            position,
+            orientation
+        })
+    };
+
+
     render() {
+        const {position, rotation, orientation} = this.state;
         return (
             <div>
                 <GoogleMap defaultZoom={8} defaultCenter={{lat: -34.397, lng: 150.644}}>
@@ -23,34 +87,51 @@ class DemoScreen extends Component {
                         this.onTakePhoto(dataUri);
                     }}
                 />
-                <ReactAccelerometer>
-                    {(position, rotation) => (
-                        <div>
-                            {position &&
-                            <div style={{height: '20px', width: 8 * position.x + 'px', backgroundColor: 'red'}}>x</div>}
-                            {position && <div
-                                style={{height: '20px', width: 8 * position.y + 'px', backgroundColor: 'blue'}}>y</div>}
-                            {position && <div style={{
-                                height: '20px',
-                                width: 8 * position.z + 'px',
-                                backgroundColor: 'green'
-                            }}>z</div>}
-                            {rotation && <div
-                                style={{height: '20px', width: rotation.alpha + 'px', backgroundColor: 'pink'}}>rotation
-                                alpha: {rotation && rotation.alpha}</div>}
-                            {rotation && <div style={{
-                                height: '20px',
-                                width: rotation.beta + 'px',
-                                backgroundColor: 'yellow'
-                            }}>rotation beta: {rotation && rotation.beta}</div>}
-                            {rotation && <div
-                                style={{height: '20px', width: rotation.gamma + 'px', backgroundColor: 'cyan'}}>rotation
-                                gamma: {rotation && rotation.gamma}</div>}
-                        </div>
+                <div>
 
+                    {position && <div style={{transform: `translate3d(${position.x}px, ${position.y}px, 0)`}}>
+                        Hello there
+                    </div>}
 
-                    )}
-                </ReactAccelerometer>
+                    {orientation && <div>{JSON.stringify(orientation)}</div>}
+
+                    {position &&
+                    <div style={{
+                        height: '20px',
+                        width: 8 * position.x + 'px',
+                        backgroundColor: 'red'
+                    }}>{position.x}</div>}
+                    {position && <div
+                        style={{
+                            height: '20px',
+                            width: 8 * position.y + 'px',
+                            backgroundColor: 'blue'
+                        }}>{position.y}</div>}
+                    {position && <div style={{
+                        height: '20px',
+                        width: 8 * position.z + 'px',
+                        backgroundColor: 'green'
+                    }}>{position.z}</div>}
+                    {rotation && <div
+                        style={{
+                            height: '20px',
+                            width: rotation.alpha + 'px',
+                            backgroundColor: 'pink'
+                        }}>rotation
+                        alpha: {rotation && rotation.alpha}</div>}
+                    {rotation && <div style={{
+                        height: '20px',
+                        width: rotation.beta + 'px',
+                        backgroundColor: 'yellow'
+                    }}>rotation beta: {rotation && rotation.beta}</div>}
+                    {rotation && <div
+                        style={{
+                            height: '20px',
+                            width: rotation.gamma + 'px',
+                            backgroundColor: 'cyan'
+                        }}>rotation
+                        gamma: {rotation && rotation.gamma}</div>}
+                </div>
             </div>);
     }
 }
@@ -66,7 +147,8 @@ export default compose(
             "https://maps.googleapis.com/maps/api/js?key=" + API_KEY + "&v=3.exp&libraries=geometry,drawing,places",
         loadingElement: <div style={{height: `100%`}}/>,
         containerElement: <div style={{height: `400px`}}/>,
-        mapElement: <div style={{height: `100%`}}/>
+        mapElement: <div style={{height: `100%`}}/>,
+        useGravity: true
     }),
     withScriptjs,
     withGoogleMap)(DemoScreen);
