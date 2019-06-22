@@ -7,7 +7,7 @@ export default class ThueCat {
     }
     
     async search(term, type, limit, offset) {
-        const url = API_BASE + 'search' + toUrlParams({term, type, limit, offset});
+        const url = API_BASE + 'search' + toUrlParams({term, type, limit, offset, api_key: this.apiKey});
         try {
             let result = await fetch(url);
             return await result.json();
@@ -17,8 +17,8 @@ export default class ThueCat {
         }
     }
     
-    async geoSearch(lat, lon, radius, term, type, limit, offset) {
-        const url = API_BASE + '/search/geocoord' + toUrlParams({lat, lon, radius, term, type, limit, offset});
+    async geoSearch(latitude, longitude, radius, term, type, limit, offset) {
+        const url = API_BASE + 'search/geocoord' + toUrlParams({latitude, longitude, radius, term, type, limit, offset, api_key: this.apiKey});
         try {
             let result = await fetch(url, {method: 'POST'});
             return await result.json();
@@ -36,7 +36,7 @@ function toUrlParams(obj) {
             if(key && obj[key]) {
             paramsString += (first ? '?' : '&');
             paramsString += key + "=" + obj[key];
-            first = !first;
+            first = false;
         }
     });
     return paramsString;
