@@ -5,6 +5,7 @@
   "dependencies": {
     "create-react-component-folder": "^0.1.30",
     "react": "^16.8.6",
+    "react-accelerometer": "^1.0.1",
     "react-dom": "^16.8.6",
     "react-google-maps": "^9.4.5",
     "react-html5-camera-photo": "^1.4.3",
