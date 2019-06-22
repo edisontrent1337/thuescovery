@@ -9,6 +9,8 @@ import {
     Marker
 } from "react-google-maps";
 
+import Orientation from "./components/Orientation/Orientation";
+
 function onTakePhoto(){
 
 }
@@ -35,6 +37,7 @@ const MyMapComponent = compose(
             <Marker position={{lat: -34.397, lng: 150.644}}/>
             <Marker position={{lat: -34.392, lng: 150.644}}/>
         </GoogleMap>
+        <Orientation/>
         <Camera
             idealFacingMode={'environment'}
             isImageMirror={false}
@@ -44,5 +47,8 @@ const MyMapComponent = compose(
         />
     </div>
 ));
+
+
+
 
 ReactDOM.render(<MyMapComponent isMarkerShown/>, document.getElementById("root"));
