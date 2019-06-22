@@ -1,17 +1,21 @@
 import React, {Component} from 'react';
+import {Link} from "react-router-dom";
 
-import { Container, Row, Col } from 'react-bootstrap';
+const discovery = require('../../../assets/discovery.png');
+const challenge = require('../../../assets/challenge.png');
+
 
 class LandingScreen extends Component {
-	render() {
-		return <Container>
-				<Row>
-					<Col>
-						<h1>Thüscovery</h1>
-					</Col>
-				</Row>
-			</Container>;
-	}
+    render() {
+        return (
+            <div>
+                <Link style={{textDecoration: 'none', color: 'white'}} to={{pathname: '/discover'}}>
+                    <img src={discovery} width={'100%'}/>
+                </Link>
+                <img src={challenge} width={'100%'}/>
+            </div>
+        );
+    }
 }
 
 export default LandingScreen;

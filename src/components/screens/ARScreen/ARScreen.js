@@ -66,18 +66,16 @@ class ARScreen extends React.Component {
         });
 
         return (
-            <Container>
-                <div style={{marginLeft: '-15px', position: 'relative'}}>
-                    {geoTags}
-                    <Camera
-                        idealFacingMode={'environment'}
-                        isImageMirror={false}
-                        onTakePhoto={(dataUri) => {
-                            this.onTakePhoto(dataUri);
-                        }}
-                    />
-                </div>
-            </Container>
+            <div style={{marginLeft: '-15px', position: 'relative'}}>
+                {geoTags}
+                <Camera
+                    idealFacingMode={'environment'}
+                    isImageMirror={false}
+                    onTakePhoto={(dataUri) => {
+                        this.onTakePhoto(dataUri);
+                    }}
+                />
+            </div>
         );
     }
 }

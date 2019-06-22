@@ -1,21 +1,15 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Nav } from 'react-bootstrap';
+import React, {Component} from 'react';
+import {Navbar} from "react-bootstrap";
+
+const logo = require('../../assets/logo.png');
 
 class Header extends Component {
-  render() {
-    return <Nav activeKey="/" fill variant="tabs">
-      <Nav.Item>
-        <Nav.Link href="/">Home</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link href="/discover">discover</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link href="/map">map</Nav.Link>
-      </Nav.Item>
-    </Nav>
-  }
+    render() {
+        return (
+            <Navbar activeKey="/" fill variant="tabs">
+                <Navbar.Brand href="/"><img src={logo}/> </Navbar.Brand>
+            </Navbar>);
+    }
 }
 
 export default Header;
