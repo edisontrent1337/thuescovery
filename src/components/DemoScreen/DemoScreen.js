@@ -3,9 +3,11 @@ import {compose, withProps} from "recompose";
 import {GoogleMap, Marker, withGoogleMap, withScriptjs} from "react-google-maps";
 import Orientation from "../Orientation/Orientation";
 import Camera from "react-html5-camera-photo";
-import ReactAccelerometer from "react-accelerometer";
 
 const API_KEY = "AIzaSyADE1MIp5__mY7JZddAZfHyyGCURkVdAFY";
+
+const POLLING_RATE = 60;
+
 
 class DemoScreen extends Component {
 
@@ -19,7 +21,7 @@ class DemoScreen extends Component {
                 alpha: 0,
                 beta: 0,
                 gamma: 0,
-            }
+            },
         }
     }
 
@@ -27,11 +29,14 @@ class DemoScreen extends Component {
         this.handleOrientation();
         window.addEventListener('devicemotion', this.handleAcceleration);
         window.addEventListener('orientationchange', this.handleOrientation);
+        this.updateInterval = setInterval(this.updateOrientation, 16)
+
     }
 
     componentWillUnmount() {
         window.removeEventListener('devicemotion', this.handleAcceleration);
         window.removeEventListener('orientationchange', this.handleOrientation);
+        clearInterval(this.updateInterval);
     }
 
     handleOrientation = (event) => {
@@ -54,22 +59,34 @@ class DemoScreen extends Component {
             x, y, z
         };
 
+        this.setState({
+            rotation,
+            position
+        })
+    };
+
+
+    updateOrientation = () => {
+
+        const rotation = this.state.rotation;
+        if (!rotation) {
+            return;
+        }
+
         let {alpha, beta, gamma} = this.state.orientation;
-        alpha += rotation.alpha;
-        beta += rotation.alpha;
-        gamma += rotation.alpha;
+
+        const FRAME_RATE = 62.5;
+        alpha += rotation.alpha / FRAME_RATE;
+        beta += rotation.beta / FRAME_RATE;
+        gamma += rotation.gamma / FRAME_RATE;
 
         const orientation = {
             alpha, beta, gamma
         };
-
         this.setState({
-            rotation,
-            position,
             orientation
-        })
+        });
     };
-
 
     render() {
         const {position, rotation, orientation} = this.state;
