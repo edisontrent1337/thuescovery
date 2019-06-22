@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import DemoScreen from "./components/DemoScreen/DemoScreen";
+import ConnectedApplicationScreen from "./components/screens/ConnectedApplicationScreen/ConnectedApplicationScreen";
 
 
 /*
@@ -55,4 +55,4 @@ const MyMapComponent = compose(
 
 
 
-ReactDOM.render(<DemoScreen isMarkerShown/>, document.getElementById("root"));
+ReactDOM.render(<ConnectedApplicationScreen />, document.getElementById("root"));
