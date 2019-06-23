@@ -12,7 +12,7 @@ class GeoTag extends Component {
     }
 
     render() {
-        const {orientation, position, poi} = this.props;
+        const {orientation, position, poi, origin} = this.props;
         const scale = 15;
         return <div className="tag" style={{
             top: position.y,
@@ -21,9 +21,10 @@ class GeoTag extends Component {
             transform: `translate3d(${orientation.beta * scale}px, ${orientation.alpha * scale}px,0)`,
             backgroundColor: this.determineIcon(poi).color
         }}>
-            <Link style={{textDecoration: 'none', color: 'white'}} to={{pathname: '/detail', state: {poi}}}>
+            <Link style={{textDecoration: 'none', color: 'white'}} to={{pathname: '/detail', state: {poi, origin}}}>
                 <div style={{display: 'table', width: '100%'}}>
-                    <div className={'mdi mdi-' + this.determineIcon(poi).icon} style={{display: 'table-cell', width: '80%'}}> {poi.name}
+                    <div className={'mdi mdi-' + this.determineIcon(poi).icon}
+                         style={{display: 'table-cell', width: '80%'}}> {poi.name}
                     </div>
                     <div style={{display: 'table-cell', width: '20%', textAlign: 'right'}}>
                         <span style={{display: 'inline-block'}} className={'mdi mdi-coin'}> {this.state.value}</span>

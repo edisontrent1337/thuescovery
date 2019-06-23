@@ -40,7 +40,7 @@ class ARScreen extends React.Component {
         // fetch current location
         let position = await getLocation();
 
-        this.setState({position: 'Got position: ' + JSON.stringify(position.coords)});
+        this.setState({position});
         // search around it
         let response = await this.api.geoSearch(position.latitude, position.longitude, 10000);
         this.generateRandomPositions(response);
@@ -61,7 +61,7 @@ class ARScreen extends React.Component {
     render() {
 
         const geoTags = this.state.pointsOfInterest.map((poi, key) => {
-            return <GeoTag poi={poi} key={key} position={this.state.positions[key]}
+            return <GeoTag poi={poi} key={key} origin={this.state.position} position={this.state.positions[key]}
                            orientation={this.state.orientation}/>;
         });
 
