@@ -32,7 +32,7 @@ class MapScreen extends Component {
       });
       
       // search around it
-      this.api.geoSearch(position.latitude, position.longitude, 10000).then((response)=>{
+      this.api.geoSearch(position.latitude, position.longitude, 1000000).then((response)=>{
         let pois = response.map((poi)=>{
           console.log('POI>', poi);
           return {
