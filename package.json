@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@edisontrent1337/web-react": "^0.3.21",
     "boostrap": "^2.0.0",
     "create-react-component-folder": "^0.1.30",
     "react": "^16.8.6",

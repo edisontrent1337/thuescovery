@@ -2,7 +2,6 @@ import React from 'react';
 import Camera from "react-html5-camera-photo";
 import getLocation from "../../../api/GeoLocation";
 import ThueCAT from "../../../api/ThueCAT";
-import Container from "react-bootstrap/Container";
 import GeoTag from "../../GeoTag/GeoTag";
 import Orientation from "../../../api/Orientation";
 

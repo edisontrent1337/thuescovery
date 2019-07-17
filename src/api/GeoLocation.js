@@ -2,9 +2,9 @@
 let currentLocation;
 
 export default async function getLocation() {
-    if (currentLocation) {
+    /*if (currentLocation) {
         return Promise.resolve(currentLocation);
-    }
+    }*/
     return new Promise((resolve, reject) => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
