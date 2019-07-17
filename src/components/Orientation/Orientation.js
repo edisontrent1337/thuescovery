@@ -28,7 +28,7 @@ class Orientation extends Component {
 
     this.setState({position: 'Got position: ' + JSON.stringify(position.coords)});
     // search around it
-    let response = await this.api.geoSearch(position.latitude, position.longitude, 10000);
+    let response = await this.api.geoSearch(position.latitude, position.longitude, 1000000);
     this.setState({apiResponse : response});
   }
 

@@ -47,8 +47,9 @@ class GeoTag extends Component {
             'Kulturhaus': {icon: 'school', color: '#'}
         };
 
-        return iconTypes[poi.additionaleType];
-
+        let icon = iconTypes[poi.additionaleType];
+        
+        return icon || {icon: 'bank', color: '#EF5350'};
     }
 }
 

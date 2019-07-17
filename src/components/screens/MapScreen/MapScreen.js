@@ -5,7 +5,7 @@ import {GoogleMap, Marker, withGoogleMap, withScriptjs} from "react-google-maps"
 
 import getLocation from '../../../api/GeoLocation';
 import ThueCat from '../../../api/ThueCAT';
-import {Button, InputField, Tag, ActionFeedback} from "@edisontrent1337/web-react/";
+import {Button, InputField, Tag} from "@edisontrent1337/web-react/";
 
 const GOOGLE_API_KEY = "AIzaSyADE1MIp5__mY7JZddAZfHyyGCURkVdAFY";
 const THUE_CAT_API_KEY = "z24f1FQAcnRml4tkmXca4lcFKF.koAsc4KCNWGO75nsLAeifNNkwgLF73zrnscb3dfnZdbk3mm.SPAl2DJFIoOz2evCHwflUF4";

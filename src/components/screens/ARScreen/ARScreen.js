@@ -41,7 +41,7 @@ class ARScreen extends React.Component {
 
         this.setState({position});
         // search around it
-        let response = await this.api.geoSearch(position.latitude, position.longitude, 10000);
+        let response = await this.api.geoSearch(position.latitude, position.longitude, 1000000);
         this.generateRandomPositions(response);
         this.setState({pointsOfInterest: response});
     }
