@@ -1,5 +1,15 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Prerequisites
+
+Install react-scripts globally, you can run:
+
+### `sudo npm install -g react-scripts`
+
+Verify that react-scripts is installed correctly, run:
+
+### `which react-scripts`
+
 ## Available Scripts
 
 In the project directory, you can run:
